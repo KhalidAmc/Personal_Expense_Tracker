@@ -5,16 +5,16 @@ Runs fully offline on Python 3.13 (no external services).
 **Live demo:** https://personal-expense-tracker-amc.streamlit.app/
 
 ## Run
-*Windows powershell
-- cd <project-folder>
+*Windows PowerShell
+- cd (project-folder)
 - python -m venv .venv
-- .\.venv\Scripts\Activate.ps1
+- .\\.venv\Scripts\Activate.ps1
 - python -m pip install --upgrade pip
 - pip install -r requirements.txt
 - streamlit run app.py
 
 *macOS / Linux (bash)
-- cd <project-folder>
+- cd (project-folder)
 - python3 -m venv .venv
 - source .venv/bin/activate
 - python -m pip install --upgrade pip
