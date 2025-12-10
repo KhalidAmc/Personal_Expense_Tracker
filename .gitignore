@@ -1,0 +1,25 @@
+# Python / venv
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# OS & editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build / cache
+dist/
+build/
+*.egg-info/
+
+# Data (keep your DB local-only)
+data/*.db
+*.sqlite
+*.sqlite3
+
+# Streamlit logs
+.streamlit/cache/
