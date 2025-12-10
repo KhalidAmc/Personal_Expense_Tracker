@@ -24,20 +24,27 @@ def dataframe_for_expenses(items: List[Dict[str, Any]]) -> pd.DataFrame:
 
 def summarize_by_month(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
-        return pd.DataFrame({"Month": [], "Total": []})
+        return pd.DataFrame({
+            "Month": pd.Series(dtype="datetime64[ns]"),
+            "Total": pd.Series(dtype="float64"),
+        })
 
     x = df.copy()
-    # 1) ensure "Date" is datetime
     x["Date"] = pd.to_datetime(x["Date"], errors="coerce")
+    x["Amount"] = pd.to_numeric(x["Amount"], errors="coerce")
     x = x.dropna(subset=["Date"])
 
-    # 2) group by month (month start) without using .to_period()
-    out = (
-        x.groupby(pd.Grouper(key="Date", freq="MS"))["Amount"]
-         .sum()
-         .reset_index()
-         .rename(columns={"Date": "Month", "Amount": "Total"})
-    )
+    # Month as first day of month (datetime64), robust across pandas versions
+    x["Month"] = x["Date"].dt.to_period("M").dt.to_timestamp()
+
+    out = (x.groupby("Month", as_index=False)["Amount"]
+           .sum()
+           .rename(columns={"Amount": "Total"}))
+
+    # Enforce dtypes explicitly
+    out["Month"] = pd.to_datetime(out["Month"], errors="coerce")
+    out["Total"] = pd.to_numeric(
+        out["Total"], errors="coerce").astype("float64")
     return out
 
 
