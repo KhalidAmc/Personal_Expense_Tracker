@@ -2,9 +2,10 @@
 A lightweight, local-first budgeting app built with Streamlit, SQLModel/SQLite, and pandas.
 Add expenses, filter/search them, analyze month trends & category totals, and import/export CSV.
 Runs fully offline on Python 3.13 (no external services).
+**Live demo:** https://personal-expense-tracker-amc.streamlit.app/
 
 ## Run
-*Windows powershell
+*Windows PowerShell
 - cd (project-folder)
 - python -m venv .venv
 - .\\.venv\Scripts\Activate.ps1
@@ -29,3 +30,6 @@ Runs fully offline on Python 3.13 (no external services).
 - "db.py":  SQLite/SQLModel setup
 - "models.py": Category/Expense
 - "analytics.py": DF helper
+
+### Deployment
+The application is deployed on Streamlit Community Cloud at **https://personal-expense-tracker-amc.streamlit.app/**.
