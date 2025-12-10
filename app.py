@@ -54,7 +54,7 @@ def load_expenses() -> List[Dict[str, Any]]:
 page = st.sidebar.radio(
     "Navigation", ["Add Expense", "View & Filter", "Dashboard", "Settings"], index=0)
 
-# -------- Add --------
+# Add Expense
 if page == "Add Expense":
     st.subheader("Add a new expense")
     c1, c2, c3, c4 = st.columns(4)
@@ -79,7 +79,7 @@ if page == "Add Expense":
                 s.commit()
             st.success("Expense saved ✅")
 
-# -------- View & Filter --------
+# View & Filter
 elif page == "View & Filter":
     st.subheader("All expenses (with filters, CSV import/export)")
     items = load_expenses()
@@ -108,7 +108,7 @@ elif page == "View & Filter":
         if text_filter.strip():
             fdf = fdf[fdf["Note"].fillna("").str.contains(
                 text_filter, case=False, na=False)]
-    # Display (hide first 2: index + ID) ===
+    # Display
     display_df = fdf[["Date", "Amount", "Category", "Note"]].copy()
     # make Amount purely numeric
     display_df["Amount"] = pd.to_numeric(
@@ -159,7 +159,7 @@ elif page == "View & Filter":
                 s.commit()
             st.success(f"Imported {len(rows)} rows ✅")
 
-# -------- Dashboard --------
+# Dashboard
 elif page == "Dashboard":
     st.subheader("Dashboard (KPIs, Monthly & Category summaries)")
     items = load_expenses()
@@ -191,8 +191,8 @@ elif page == "Dashboard":
     st.dataframe(
         styler,
         hide_index=True,
-        width=420,                  # or use_container_width=True
-        # no column_config here - formatting is handled by Styler
+        width=420,
+        # formatting is handled by Styler
     )
 
     if not by_month.empty:
@@ -225,7 +225,7 @@ elif page == "Dashboard":
     st.dataframe(
         cat_styler,
         hide_index=True,
-        width=420,  # or use_container_width=True
+        width=420,
     )
     if not by_cat.empty:
         import altair as alt
@@ -236,7 +236,7 @@ elif page == "Dashboard":
         ).properties(height=280)
         st.altair_chart(chart_c, use_container_width=True)
 
-# -------- Settings --------
+# Settings
 elif page == "Settings":
     st.subheader("Manage categories")
     st.markdown("**Add a new category**")

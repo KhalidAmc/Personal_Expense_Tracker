@@ -15,16 +15,20 @@ _DB_URL = f"sqlite:///{_DB_FILE}"
 
 _engine = create_engine(_DB_URL, echo=False)
 
+
 def get_engine():
     return _engine
 
+
 def init_db(engine) -> None:
     SQLModel.metadata.create_all(engine)
+
 
 @contextmanager
 def get_session() -> Iterator[Session]:
     with Session(_engine) as session:
         yield session
+
 
 def ensure_default_categories(defaults: List[str] | None = None) -> None:
     if defaults is None:
@@ -36,10 +40,12 @@ def ensure_default_categories(defaults: List[str] | None = None) -> None:
                 s.add(Category(name=name))
             s.commit()
 
+
 def category_in_use(name: str) -> bool:
     with get_session() as s:
         row = s.exec(select(Expense).where(Expense.category == name)).first()
         return row is not None
+
 
 def safe_delete_category(name: str) -> tuple[bool, str]:
     """Delete a category only if it's not referenced by any Expense."""

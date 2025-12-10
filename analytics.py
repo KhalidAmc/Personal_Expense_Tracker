@@ -3,7 +3,7 @@ from typing import List, Dict, Any, Tuple
 import io
 import pandas as pd
 
-# -------- DataFrame shaping --------
+# DataFrame shaping
 
 
 def dataframe_for_expenses(items: List[Dict[str, Any]]) -> pd.DataFrame:
@@ -19,7 +19,7 @@ def dataframe_for_expenses(items: List[Dict[str, Any]]) -> pd.DataFrame:
     df = df.sort_values(["Date", "ID"], ascending=[False, False])
     return df
 
-# -------- Summaries --------
+# Summaries
 
 
 def summarize_by_month(df: pd.DataFrame) -> pd.DataFrame:
@@ -34,14 +34,14 @@ def summarize_by_month(df: pd.DataFrame) -> pd.DataFrame:
     x["Amount"] = pd.to_numeric(x["Amount"], errors="coerce")
     x = x.dropna(subset=["Date"])
 
-    # Month as first day of month (datetime64), robust across pandas versions
+    # Month as first day of month
     x["Month"] = x["Date"].dt.to_period("M").dt.to_timestamp()
 
     out = (x.groupby("Month", as_index=False)["Amount"]
            .sum()
            .rename(columns={"Amount": "Total"}))
 
-    # Enforce dtypes explicitly
+    # Enforce dtypes
     out["Month"] = pd.to_datetime(out["Month"], errors="coerce")
     out["Total"] = pd.to_numeric(
         out["Total"], errors="coerce").astype("float64")
@@ -55,7 +55,7 @@ def summarize_by_category(df: pd.DataFrame) -> pd.DataFrame:
         "Amount"].sum().rename(columns={"Amount": "Total"})
     return out.sort_values("Total", ascending=False)
 
-# -------- KPIs --------
+# KPIs
 
 
 def kpis_current_month(df: pd.DataFrame) -> Dict[str, Any]:
@@ -81,7 +81,8 @@ def kpis_current_month(df: pd.DataFrame) -> Dict[str, Any]:
     return {"total_month": total, "tx_count": tx, "avg_daily": avg_daily, "top_category": top_cat, "largest": largest}
 
 
-# -------- CSV helpers --------
+# CSV helpers
+
 CSV_COLUMNS = ["date", "amount", "category", "note"]
 
 
