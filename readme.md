@@ -1,24 +1,28 @@
-# Personal Expense Tracker: Phase 2
-This is a partial implementation for Assignment 2 (phase 2 checkpoint).  
-It includes core data entry and basic viewing/filtering. The dashboard and some settings will be implemented in the next phase.
+# Personal Expense Tracker: Final
+A lightweight, local-first budgeting app built with Streamlit, SQLModel/SQLite, and pandas.
+Add expenses, filter/search them, analyze month trends & category totals, and import/export CSV.
+Runs fully offline on Python 3.13 (no external services).
 
-## Run (Windows PowerShell)
-*powershell
-cd (The Project directory)
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-streamlit run app.py
+## Run
+*Windows powershell
+- cd <project-folder>
+- python -m venv .venv
+- .\.venv\Scripts\Activate.ps1
+- python -m pip install --upgrade pip
+- pip install -r requirements.txt
+- streamlit run app.py
 
-## Current Scope (Phase 2)
-- Add Expense (date, amount, category, note)
-- View & Filter (category/date/text)
-- Basic Category add
-## TODO
-- Dashboard (+ charts)
-- Category delete 
-- Import/Export CSV 
+*macOS / Linux (bash)
+- cd <project-folder>
+- python3 -m venv .venv
+- source .venv/bin/activate
+- python -m pip install --upgrade pip
+- pip install -r requirements.txt
+- streamlit run app.py
+
+## Requirements
+- Python 3.13.x
+- Packages pinned in requirements.txt (Streamlit, SQLModel, SQLAlchemy 2.x, pandas, Altair, etc.)
 
 ## Files
 - "app.py": Streamlit UI (Add Expense, View & Filter, Settings, dashboard)
